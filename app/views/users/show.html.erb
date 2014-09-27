@@ -15,5 +15,21 @@
   <%= @user.phone %>
 </p>
 
+<p> 
+  <strong>User ID:</strong>
+  <%= @user.id %>
+</p>
+
+ <div class="span8">
+    <% if @user.projects.any? %>
+      <h3>Projects (<%= @user.projects.count %>)</h3>
+      <ol class="projects">
+        <%= render @projects %>
+      </ol>
+    <% else %>
+      <h3> This user has no Projects at the moment </h3>
+    <% end %>
+  </div>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

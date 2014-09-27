@@ -40,3 +40,8 @@ gem 'spring',        group: :development
 
 # gem for RabbitMQ
 gem 'bunny'
+
+group :development do 
+	gem 'better_errors'
+	gem 'binding_of_caller'
+end
