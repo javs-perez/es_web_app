@@ -4,18 +4,14 @@ class ProjectsController < ApplicationController
   before_action :set_user, only: :show
 
   after_action :publish_funding, only: [:update, :create]
-  # GET /projects
-  # GET /projects.json
+
   def index
     @projects = Project.all
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
   end
 
-  # GET /projects/new
   def new
     @project = Project.new
     @users = User.all
@@ -27,8 +23,6 @@ class ProjectsController < ApplicationController
 
   end
 
-  # POST /projects
-  # POST /projects.json
   def create
     @project = Project.new(project_params)
     @users = User.all
@@ -38,21 +32,8 @@ class ProjectsController < ApplicationController
     else
       render :new
     end
-
-
-    # respond_to do |format|
-    #   if @project.save
-    #     format.html { redirect_to @project, notice: 'Project was successfully created.' }
-    #     format.json { render :show, status: :created, location: @project }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @project.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
       if @project.update(project_params)
@@ -65,8 +46,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     @project.destroy
     respond_to do |format|
@@ -81,9 +60,13 @@ class ProjectsController < ApplicationController
       @previous_status = @project.status
     end
 
+    def set_user
+      @user = User.find_by(id: @project.user_id)
+    end
+
     def publish_funding
       set_user
-      
+
       if ((@project.status == "Funding") && (@previous_status != "Funding" ))
         Publisher.publish("projects", { 
           header: {
@@ -103,10 +86,6 @@ class ProjectsController < ApplicationController
           } 
         })
       end
-    end
-
-    def set_user
-      @user = User.find_by(id: @project.user_id)
     end
 
     # Use callbacks to share common setup or constraints between actions.
