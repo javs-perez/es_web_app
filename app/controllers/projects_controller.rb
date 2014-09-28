@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :set_status, only: [:update]
+  before_action :set_status, only: :update
+  before_action :set_user, only: :show
 
   after_action :publish_funding, only: [:update, :create]
   # GET /projects
@@ -12,7 +13,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @user = User.find_by(id: @project.user_id)
   end
 
   # GET /projects/new
@@ -82,8 +82,8 @@ class ProjectsController < ApplicationController
     end
 
     def publish_funding
-      @user = User.find_by(id: @project.user_id)
-
+      set_user
+      
       if ((@project.status == "Funding") && (@previous_status != "Funding" ))
         Publisher.publish("projects", { 
           header: {
@@ -103,6 +103,10 @@ class ProjectsController < ApplicationController
           } 
         })
       end
+    end
+
+    def set_user
+      @user = User.find_by(id: @project.user_id)
     end
 
     # Use callbacks to share common setup or constraints between actions.
