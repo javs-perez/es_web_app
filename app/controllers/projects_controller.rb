@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
     @users = User.all
 
     if @project.save
-     redirect_to @project, notice: 'Project was successfully created'
+      redirect_to @project, notice: 'Project was successfully created'
     else
       render :new
     end
@@ -70,16 +70,16 @@ class ProjectsController < ApplicationController
       if ((@project.status == "Funding") && (@previous_status != "Funding" ))
         Publisher.publish("projects", { 
           header: {
-            ref_id:       @project.status, 
+            ref_id:       Time.now.to_i, 
             client_id:    "es_web",
-            timestamp:    @project.created_at,
-            priority:     "Normal",
-            auth_token:   @project.id,
+            timestamp:    Time.now.utc,
+            priority:     "normal",
+            auth_token:   ENV["RABBITMQ_AUTH_TOKEN"] || "test_auth_token",
             event_type:   "project_status_update"
           }, 
           body: {
             user_id:      @project.user_id,
-            channel:      "Email",
+            channel:      "email",
             email:        @user.email,
             user_name:    @user.name,
             user_mobile:  @user.phone

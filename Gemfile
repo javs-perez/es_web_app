@@ -49,3 +49,8 @@ end
 gem 'simplecov', :require => false, :group => :test
 
 gem 'twitter-bootstrap-rails'
+
+group :test, :development do 
+	gem 'rspec'
+	gem 'rspec-rails'
+end
