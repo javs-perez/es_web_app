@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_status, only: [:update]
+
   after_action :publish_funding, only: [:update, :create]
   # GET /projects
   # GET /projects.json
@@ -10,7 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @user = User.find_by(params[:user_id])
+    @user = User.find_by(id: @project.user_id)
   end
 
   # GET /projects/new
@@ -75,11 +77,33 @@ class ProjectsController < ApplicationController
 
   private
 
-  def publish_funding
-    if @project.status == "Funding"
-      Publisher.publish("projects", @project.attributes)
+    def set_status
+      @previous_status = @project.status
     end
-  end
+
+    def publish_funding
+      @user = User.find_by(id: @project.user_id)
+
+      if ((@project.status == "Funding") && (@previous_status != "Funding" ))
+        Publisher.publish("projects", { 
+          header: {
+            ref_id:       @project.status, 
+            client_id:    "es_web",
+            timestamp:    @project.created_at,
+            priority:     "Normal",
+            auth_token:   @project.id,
+            event_type:   "project_status_update"
+          }, 
+          body: {
+            user_id:      @project.user_id,
+            channel:      "Email",
+            email:        @user.email,
+            user_name:    @user.name,
+            user_mobile:  @user.phone
+          } 
+        })
+      end
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_project
