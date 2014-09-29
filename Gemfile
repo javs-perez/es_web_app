@@ -54,3 +54,5 @@ group :test, :development do
 	gem 'rspec'
 	gem 'rspec-rails'
 end
+
+gem 'minitest', :group => :test
