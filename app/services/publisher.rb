@@ -8,8 +8,8 @@ class Publisher
 
 	def self.publish(exchange, message = {})
 		@exchange = channel.fanout("project.#{exchange}")
-
-		@exchange.publish(message.to_json, :durable => true)
+		@channel.confirm_select
+		@exchange.publish(message.to_json, :persistent => true)
 	end
 
 	def self.channel

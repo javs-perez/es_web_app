@@ -19,11 +19,11 @@ describe ProjectsController do
 		expect(assigns(:project).status).to eq("Funding")
 	
 		
-		connection 	= 	double('connection')
-		channel 		= 	double('channel')
-		exchange 		= 	double('exchange')
-		Publisher.stub(:connection) 		{ connection 	}
-		Publisher.stub(:create_channel) { channel 		}
-		Publisher.stub(:publish) 				{ exchange 		} 
+	# 	connection 	= 	double('connection')
+	# 	channel 		= 	double('channel')
+	# 	exchange 		= 	double('exchange')
+	# 	Publisher.stub(:connection) 		{ connection 	}
+	# 	Publisher.stub(:create_channel) { channel 		}
+	# 	Publisher.stub(:publish) 				{ exchange 		} 
 	end
 end
