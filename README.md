@@ -65,7 +65,7 @@ If previous status of project was funding, it does not send a notification again
 
 <div>
 	<h2> RabbitMQ Server </h2>
-		<p>A local running RabbitMQ service was used in the dev environment and messages where sent to it. The receiver buil looked like this:</p>
+		<p>A local running RabbitMQ service was used in the dev environment and messages where sent to it. The receiver looked like this:</p>
 </div>
 
 ```
