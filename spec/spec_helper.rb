@@ -44,8 +44,3 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
-
-# VCR.configure do |c|
-#   c.cassette_library_dir = Rails.root.join('spec/vcr_cassettes')
-#   c.hook_into :webmock
-# end

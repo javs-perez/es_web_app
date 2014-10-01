@@ -21,4 +21,21 @@ describe Project do
 	it "is invalid witout a name" do
 		FactoryGirl.build(:user, name: nil).should_not be_valid
 	end
+
+	it "should create a user and update it correctly" do
+		user = User.new(name: "Awesome User", phone: "555-555-5555", email: "something@something.com" )
+
+		expect(user.name).to 	eq("Awesome User")
+		expect(user.phone).to eq("555-555-5555")
+		expect(user.email).to eq("something@something.com")
+		
+		user.name = "Test user"
+		expect(user.name).to eq("Test user")
+
+		user.phone = "555-555-5555"
+		expect(user.phone).to eq("555-555-5555")
+
+		user.email = "awesome@something.com"
+		expect(user.email).to eq("awesome@something.com")
+	end
 end

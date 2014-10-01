@@ -20,4 +20,20 @@ describe Project do
 	it "is valid witout a name" do
 		FactoryGirl.build(:project, name: nil).should be_valid
 	end
+
+	it "should create a project and update it correctly" do
+		project = Project.new(name: "Awesome test project", status: "New", user_id: 1000 )
+
+		expect(project.name).to 	eq("Awesome test project")
+		expect(project.status).to eq("New")
+		expect(project.user_id).to eq(1000)
+		
+		project.name = "Test Project"
+		expect(project.name).to eq("Test Project")
+
+		project.status = "Approved"
+		expect(project.status).to eq("Approved")
+	end
+
+
 end
