@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/bumi/bunny-mock.git
+  revision: 0f02c6216c976c5b50689c669780104e2631b7c1
+  specs:
+    bunny_mock (0.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,7 +44,6 @@ GEM
     builder (3.2.2)
     bunny (1.4.1)
       amq-protocol (>= 1.9.2)
-    bunny_mock (0.0.1)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -155,7 +160,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bunny
-  bunny_mock
+  bunny_mock!
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails

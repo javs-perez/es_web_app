@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
 	belongs_to :user
+  has_many :project_messages
+
 	default_scope -> { order('created_at DESC') }
 	validates :user_id, :presence => true
 
@@ -13,14 +15,16 @@ class Project < ActiveRecord::Base
 	private
 
 		def set_status
-      @previous_status = Project.find_by(id: id).status
+			if id
+      	@previous_status = Project.find_by(id: id).status
+    	end
     end
 
 		def publish_funding
       @user = User.find_by(id: self.user_id)
 
       if ((self.status == "Funding") && (@previous_status != "Funding" ))
-        Publisher.publish("projects", { 
+        message = { 
           header: {
             ref_id:       Time.now.to_i, 
             client_id:    "es_web",
@@ -36,7 +40,13 @@ class Project < ActiveRecord::Base
             user_name:    @user.name,
             user_mobile:  @user.phone
           } 
-        })
+        }
+
+        begin
+          Publisher.publish("projects", message )
+        rescue Bunny::Exception 
+          project_messages.create!(message: message.to_json)
+        end
       end
     end
 end

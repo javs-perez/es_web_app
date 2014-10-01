@@ -53,7 +53,7 @@ gem 'twitter-bootstrap-rails'
 group :test, :development do 
 	gem 'rspec'
 	gem 'rspec-rails'
-	gem 'bunny_mock'
+	gem 'bunny_mock', github: 'bumi/bunny-mock' 
 end
 
 gem 'minitest', :group => :test
