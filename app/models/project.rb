@@ -47,6 +47,7 @@ class Project < ActiveRecord::Base
       rescue Bunny::Exception 
         project_messages.create!(message: message.to_json)
       end
+    
     end
   end
 end

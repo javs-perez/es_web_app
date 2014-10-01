@@ -29,9 +29,13 @@ gem 'bunny'
 group :development do 
 	gem 'better_errors'
 	gem 'binding_of_caller'
+	gem 'capybara'
 end
 
-gem 'simplecov', :require => false, :group => :test
+group :test do
+	gem 'simplecov', :require => false
+	gem 'faker'
+end
 
 gem 'twitter-bootstrap-rails'
 
@@ -40,4 +44,6 @@ group :test, :development do
 	gem 'rspec-rails'
 	gem 'bunny_mock', github: 'bumi/bunny-mock'
 	gem 'minitest' 
+	gem 'factory_girl_rails'
 end
+

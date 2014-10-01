@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'mocks/bunny_mock'
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/rspec'
 
 
 # Requires supporting ruby files with custom matchers and macros, etc,

@@ -8,11 +8,8 @@ class ProjectMessage < ActiveRecord::Base
 				Publisher.publish("projects", JSON.parse(project_message.message))
 				project_message.destroy
 			rescue Bunny::Exception
-
+				puts "Please make sure rake publish_messages is run again when the server is available"
 			end
 		end
-
-
 	end
-
 end
