@@ -7,6 +7,7 @@ class BunnyMock
   def fanout(*attrs)
     exchange(*attrs)
   end
+  
   def open?
     true
   end

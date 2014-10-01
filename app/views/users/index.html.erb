@@ -20,7 +20,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.phone %></td>
-        <td><%=l user.created_at %></td>
+        <td><%= user.created_at.in_time_zone("Eastern Time (US & Canada)").to_formatted_s(:long) %></td>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
                       user, :class => 'btn btn-mini' %>

@@ -1,12 +1,9 @@
 class Publisher
 	
 	def self.publish(exchange, message = {})
-	
-	
-			exchange = channel.fanout("project.#{exchange}")
+		exchange = channel.fanout("project.#{exchange}")
 		
-			exchange.publish(message.to_json, :persistent => true)
-		
+		exchange.publish(message.to_json, :persistent => true)
 	end
 
 	def self.channel

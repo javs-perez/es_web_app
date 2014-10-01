@@ -1,0 +1,13 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar-header" >
+      <ul class="nav navbar-nav">
+        <li class="<%='active' if current_page?(users_path) %>" %><%= link_to "Users", users_path %></li>
+        <li class="<%='active' if current_page?(root_path) %>" %><%= link_to "Projects", root_path %></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

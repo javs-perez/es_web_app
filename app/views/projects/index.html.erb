@@ -9,8 +9,9 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= link_to "Status", projects_path(:sort => "status") %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name("Owner") %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -21,7 +22,8 @@
         <td><%= project.status %></td>
         <td><%= project.name %></td>
         <td><%= @users.find_by(id: project.user_id).name %></td>
-        <td><%=l project.created_at %></td>
+        <td><%= project.created_at.in_time_zone("Eastern Time (US & Canada)").to_formatted_s(:long) %></td>
+        <td><%= project.updated_at.in_time_zone("Eastern Time (US & Canada)").to_formatted_s(:long) %></td>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
                       project, :class => 'btn btn-mini' %>

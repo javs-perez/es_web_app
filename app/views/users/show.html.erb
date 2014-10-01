@@ -1,6 +1,6 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%=t '.title', :default => "Owner"%></h1>
 </div>
 
 <dl class="dl-horizontal">
@@ -26,16 +26,42 @@
   </div>
 </section>
 
-<section>
-  <div class="span12">
-    <% if @user.projects.any? %>
-    <h3>Projects (<%= @user.projects.count %>)</h3>
-    <ol class="projects">
-      <%= render @projects %>
-    </ol>
-    <% else %>
-    <h3> This user has no Projects at the moment </h3>
+
+<table class="table table-striped">
+  <h2>Projects (<%= @user.projects.count %>)</h2>
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= link_to "Status", projects_path(:sort => "status") %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name("Owner") %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= link_to project.id, project_path(project) %></td>
+        <td><%= project.status %></td>
+        <td><%= project.name %></td>
+        <td><%= @user.name %></td>
+        <td><%= project.created_at.in_time_zone("Eastern Time (US & Canada)").to_formatted_s(:long) %></td>
+        <td><%= project.updated_at.in_time_zone("Eastern Time (US & Canada)").to_formatted_s(:long) %></td>
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      project, :class => 'btn btn-mini' %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_project_path(project), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      project_path(project),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
     <% end %>
-  </div>
-</section>
+  </tbody>
+</table>
 
