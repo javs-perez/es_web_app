@@ -1,13 +1,10 @@
-== README
+<h1>README</h1>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<p>* Ruby version 2.1.1</p>
+<p>* Rails version 4.1.1</p>
 
-* Ruby version 2.1.1
-* Rails version 4.1.1
-
-App to send notifications through RabbitMQ whenever a project's status changes to Funding. 
-If previous status of project was funding, it does not send a notification again.
+<p>App to send notifications through RabbitMQ whenever a project's status changes to Funding. 
+If previous status of project was funding, it does not send a notification again.</p>
 
 There are three Models
 Project
