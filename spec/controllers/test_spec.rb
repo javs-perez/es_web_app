@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe ProjectsController do 
 
-
+	# integration test, making sure that a project can be created and then updated and redirecting to the right pages
 	before(:all) do
 		@user = User.create(name: "test dummy", phone: "305-555-5555", email: "something@something.com")
 	end

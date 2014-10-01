@@ -1,5 +1,5 @@
 class Publisher
-
+	# test the publisher with the BunnyMock gem making sure that there is no problems publishing
 	def self.publish(exchange, message = {})
 		exchange = channel.fanout("project.#{exchange}")
 		

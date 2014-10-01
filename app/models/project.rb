@@ -1,12 +1,14 @@
 class Project < ActiveRecord::Base
 	belongs_to :user
+  # created a model of project_messages for messages that are not delivered to be delivered at a later time
   has_many :project_messages
 
   default_scope -> { order('created_at DESC') }
+  # every project must have an owner
   validates :user_id, :presence => true
 
+  # only 4 status are allowed
   STATUS = ["Approved", "New", "Pre-funding", "Funding"]
-
   validates_inclusion_of :status, :in => STATUS
 
   before_save :set_status
@@ -14,13 +16,19 @@ class Project < ActiveRecord::Base
 
   private
 
+  # setting the status before saving an update action to check that a funding notification does not get sent twice
   def set_status
     if id
       @previous_status = Project.find_by(id: id).status
     end
   end
 
- def publish_funding
+  # method for the notification it takes into account current status and previous status before sending a notification
+  # with all the information needed. 
+  # ref_id is a unique identifier by grabbing the time at the moment of the message and making it an integer
+  # we can make it more unique if we need to.
+  # auth_token is string for the moment until an environment variable is saved under "RABBITMQ_AUTH_TOKEN"
+  def publish_funding
   @user = User.find_by(id: self.user_id)
 
   if ((self.status == "Funding") && (@previous_status != "Funding" ))
@@ -42,6 +50,8 @@ class Project < ActiveRecord::Base
         } 
       }
 
+      # rescues an exception of the message cannot be delivered and saves the message to the database
+      # to be sent at a later time through a rake task
       begin
         Publisher.publish("projects", message )
       rescue Bunny::Exception 

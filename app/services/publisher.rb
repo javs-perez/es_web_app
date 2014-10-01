@@ -1,5 +1,5 @@
 class Publisher
-	
+	# basic RabbitMQ fanout exchange, it publishes message to all listening
 	def self.publish(exchange, message = {})
 		exchange = channel.fanout("project.#{exchange}")
 		

@@ -53,6 +53,7 @@ class ProjectsController < ApplicationController
   end
 
   private
+    # to be able to show name of user in show view of project
     def set_user
       @user = User.find_by(id: @project.user_id)
     end

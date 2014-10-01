@@ -1,6 +1,8 @@
 class ProjectMessage < ActiveRecord::Base
 	belongs_to :project
 
+	# for ever project_message in the model it tries to publish it one more time, if successful it destroys the entry
+	# if not successful it does nothing except for puts a message
 	def self.publish_all
 		self.all.each do |project_message|
 
