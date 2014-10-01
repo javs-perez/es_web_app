@@ -12,7 +12,7 @@ If previous status of project was funding, it does not send a notification again
 	<h3>Project</h3>
 		<p>* status - valid values are "approved", "new", "pre-funding", and "funding"</p>
 		<p>* owner - which is a User</p>
-		<p>* name - added a name for the project so that they are easily visible on the UI, it does not need to be present to say a project</p>
+		<p>* name - added a name for the project so that they are easily visible on the UI, it does not need to be present to save a project</p>
 </div>
 
 <div>
@@ -24,7 +24,7 @@ If previous status of project was funding, it does not send a notification again
 
 <div>
 	<h3>Project_message</h3>
-		<p>* message - this model was created to be able to keep the notifications that are not sent out due to server been down or unavailable.	(a rake task :publish_messages needs to be done before the app tries to send it again)</p>
+		<p>* message - this model was created to be able to keep the notifications that are not sent out due to server been down or unavailable.	(a rake task :publish_messages needs to be run at different intervals before the app tries to send the messages again)</p>
 </div>
 <div>
 
@@ -36,7 +36,7 @@ If previous status of project was funding, it does not send a notification again
 
 <div>
 	<h2>Notification</h2>
-		<p>* When a project switches into the "funding" state, a notification is sent through the RabbitMQ server. This is done through a fanout exchange which broadcasts all the messages/notification it receives to all the queues it knows.</p>
+		<p>* When a project switches into the "funding" state, a notification is sent through the RabbitMQ server. This is done through a fanout exchange which broadcasts all the messages/notifications it receives to all the queues it knows.</p>
 		<p>* The app takes care of the transitioning from "funding" to "funding" and does not sent a notification for this.</p>
 </div>
 
@@ -44,7 +44,7 @@ If previous status of project was funding, it does not send a notification again
 	<h2>Notification payload</h2>
 		<div>
 			<h3>header</h3>
-				<p>* ref_id: a unique identifier for the message. It gest the time the message is sent and make it into an integer. If the identifier needs to be more unique that can be fixed.</p>
+				<p>* ref_id: a unique identifier for the message. It gest the time the message is sent and makes it into an integer. If the identifier needs to be more unique that can be fixed.</p>
 				<p>* client_id: “es_web”, the name of the client generating this message</p>
 				<p>* timestamp: message’s created_at time</p>
 				<p>*	priority: default is “normal” </p>
@@ -52,7 +52,7 @@ If previous status of project was funding, it does not send a notification again
 				<p>* event_type: “project_status_update”, the type of event being sent</p>
 		</div>
 		<div>
-			<h3>* body</h3>
+			<h3>body</h3>
 				<p>* user_id: project owner id</p>
 				<p>* channel: “email”, how to notify the account managers</p>
 				<p>* user_email: project owner email</p>
@@ -66,6 +66,7 @@ If previous status of project was funding, it does not send a notification again
 <div>
 	<h2> RabbitMQ Server </h2>
 		<p>A local running RabbitMQ service was used in the dev environment and messages where sent to it. The receiver buil looked like this:</p>
+</div>
 
 ```
 #!/usr/bin/env ruby
@@ -93,6 +94,7 @@ rescue Interrupt => _
 	conn.close
 end
 ```
+<div>
 	<p>This small code plus the RabbitMQ server was used to receive the messages and make sure they were in the right format.</p>
 </div>
 
