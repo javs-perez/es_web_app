@@ -44,7 +44,7 @@ If previous status of project was funding, it does not send a notification again
 	<h2>Notification payload</h2>
 		<div>
 			<h3>header</h3>
-				<p>* ref_id: a unique identifier for the message. It gest the time the message is sent and makes it into an integer. If the identifier needs to be more unique that can be fixed.</p>
+				<p>* ref_id: a unique identifier for the message. It gest the time the message is sent and makes it into an integer. If the identifier needs to be more unique, that can be fixed.</p>
 				<p>* client_id: “es_web”, the name of the client generating this message</p>
 				<p>* timestamp: message’s created_at time</p>
 				<p>*	priority: default is “normal” </p>
